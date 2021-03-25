@@ -29,6 +29,9 @@ namespace MusicPlayer.Helpers
             else
             {
                 Player.Stop();
+                // if the main thread is blocked it won't play another song until 
+                // the next time start is played after stop, so using threading we can
+                // ignore that
                 Thread a = new Thread
                 (
                     (x) =>
@@ -41,33 +44,36 @@ namespace MusicPlayer.Helpers
             }
         }
 
+        
+
         public class AudioPlayer
         {
             public List<string> playList = new List<string> { };
 
-            public delegate void TrackFinished(string trackName);
+            public delegate void TrackFinished(int index);
             public event TrackFinished TrackEnd;
 
-            public delegate void ProgressChanged(float progress);
-            public event ProgressChanged FileCheckProgressChanged;
+            public delegate void ProgressChanged(AudioTrack progress);
+            public event ProgressChanged SongTimeChanged;
 
+            public int songIndex {get; private set;} = 0;
             public bool isRunning { get; private set; } = false;
             public bool playingAll { get; private set; } = false;
 
             private CancellationTokenSource cts; 
-            private int songIndex = 0;
             
-            private void OnTrackFinished(string track)
+            
+            private void OnTrackFinished()
             {
                 if(TrackEnd != null)
                 {
-                    TrackEnd(track);
+                    TrackEnd(songIndex);
                 }
             }
 
-            private void OnProgressChanged(float percentage)
+            private void OnProgressChanged(AudioTrack percentage)
             {
-                FileCheckProgressChanged?.Invoke(percentage);
+                SongTimeChanged?.Invoke(percentage);
             }
 
 
@@ -84,9 +90,11 @@ namespace MusicPlayer.Helpers
             {
                 if (!playingAll)
                 {
-                    playingAll = true;
                     if(playList.Count - 1 >= songIndex)
-                    Start(playList[songIndex]);
+                    {
+                        playingAll = true;
+                        Start(playList[songIndex]);
+                    }
                 }
             }
 
@@ -111,7 +119,7 @@ namespace MusicPlayer.Helpers
                 {
                     isRunning = true;
 
-                    Progress<float> progress = new Progress<float>(OnProgressChanged);
+                    Progress<AudioTrack> progress = new Progress<AudioTrack>(OnProgressChanged);
                     cts = new CancellationTokenSource();
 
                     await Task.Run(() =>
@@ -125,7 +133,7 @@ namespace MusicPlayer.Helpers
                         }
                     }, cts.Token);
 
-                    OnTrackFinished(filePath);
+                    OnTrackFinished();
                     isRunning = false;
                     GC.Collect();
                 }
@@ -146,7 +154,7 @@ namespace MusicPlayer.Helpers
                 playingAll = false;
             }
 
-            private void PlayAudioThread(string filePath, IProgress<float> progress, CancellationToken ct)
+            private void PlayAudioThread(string filePath, IProgress<AudioTrack> progress, CancellationToken ct)
             {
                 using (WaveOutEvent wout = new WaveOutEvent())
                 using (AudioFileReader afr = new AudioFileReader(filePath))
@@ -154,28 +162,39 @@ namespace MusicPlayer.Helpers
                     wout.Init(afr);
                     wout.Play();
                     Stopwatch timer = Stopwatch.StartNew();
+                    AudioTrack track = new AudioTrack() 
+                    { 
+                        currentTime = TimeSpan.Zero, 
+                        totalTime = afr.TotalTime, 
+                        progress = 0 
+                    };
+
                     while (wout.PlaybackState != PlaybackState.Stopped && !ct.IsCancellationRequested)
                     {
-                        if (timer.ElapsedMilliseconds > 200)
+                        if (timer.ElapsedMilliseconds > 100)
                         {
-                            progress.Report((float)(afr.CurrentTime.TotalSeconds / afr.TotalTime.TotalSeconds) * 100f);
+                            progress.Report(track);
 
                             timer.Reset();
                             timer.Start();
                         }
-                        
+                        track.currentTime = afr.CurrentTime;
+                        track.progress = (int)Math.Round
+                            (
+                            (double)(afr.CurrentTime.TotalSeconds / afr.TotalTime.TotalSeconds) * 100d
+                            );
                         Thread.Sleep(200);
                     }
 
                     if (ct.IsCancellationRequested)
                     {
-                        progress.Report(0);
+                        progress.Report(AudioTrack.empty);
 
                         ct.ThrowIfCancellationRequested();
                     }
                     else
                     {
-                        progress.Report(100);
+                        progress.Report(track);
                     }
                 }
             }

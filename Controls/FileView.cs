@@ -40,7 +40,7 @@ namespace MusicPlayer.Controls
             {
                 UnselectAll();
 
-                if (value > -1)
+                if (value > -1 && value < Items.Count)
                 {
                     ListViewItem lvi = Items[value];
                     lvi.EnsureVisible();

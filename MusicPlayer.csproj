@@ -55,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ColorProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\FileView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -65,6 +68,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AudioHelper.cs" />
+    <Compile Include="Helpers\Structs.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\PathHelper.cs" />
     <Compile Include="Program.cs" />
