@@ -1,6 +1,5 @@
 X:\Languages\C#\MusicPlayer\bin\Debug\NAudio.dll
 X:\Languages\C#\MusicPlayer\bin\Debug\NAudio.xml
-X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.csprojAssemblyReference.cache
 X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.Properties.Resources.resources
 X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.csproj.GenerateResource.cache
 X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.csproj.CoreCompileInputs.cache

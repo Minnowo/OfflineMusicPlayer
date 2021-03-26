@@ -1,0 +1,13 @@
+X:\Languages\C#\MusicPlayer\bin\Release\omp.exe.config
+X:\Languages\C#\MusicPlayer\bin\Release\omp.exe
+X:\Languages\C#\MusicPlayer\bin\Release\omp.pdb
+X:\Languages\C#\MusicPlayer\bin\Release\NAudio.dll
+X:\Languages\C#\MusicPlayer\bin\Release\NAudio.xml
+X:\Languages\C#\MusicPlayer\obj\Release\MusicPlayer.Controls.FileView.resources
+X:\Languages\C#\MusicPlayer\obj\Release\MusicPlayer.MainForm.resources
+X:\Languages\C#\MusicPlayer\obj\Release\MusicPlayer.Properties.Resources.resources
+X:\Languages\C#\MusicPlayer\obj\Release\MusicPlayer.csproj.GenerateResource.cache
+X:\Languages\C#\MusicPlayer\obj\Release\MusicPlayer.csproj.CoreCompileInputs.cache
+X:\Languages\C#\MusicPlayer\obj\Release\MusicPlayer.csproj.CopyComplete
+X:\Languages\C#\MusicPlayer\obj\Release\omp.exe
+X:\Languages\C#\MusicPlayer\obj\Release\omp.pdb

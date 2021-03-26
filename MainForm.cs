@@ -11,12 +11,14 @@ using MusicPlayer.Controls;
 using MusicPlayer.Helpers;
 using System.Threading;
 using System.IO;
+using System.Diagnostics;
 
 namespace MusicPlayer
 {
     public partial class MainForm : Form
     {
         private bool preventOverflow = false;
+        private Stopwatch shuffleRateLimit;
         public MainForm()
         {
             InitializeComponent();
@@ -25,8 +27,10 @@ namespace MusicPlayer
             AudioHelper.Player.SongTimeChanged += Player_SongTimeChanged;
             AudioHelper.Player.TrackEnd += Player_TrackEnd;
 
-            pbSongTime.ForeColor = Color.Red;
+            pbSongTime.ForeColor = Color.CornflowerBlue;
             psVolume.ValueChange += ProgressSlider11_ValueChange;
+
+            shuffleRateLimit = Stopwatch.StartNew();
         }
 
         private void ProgressSlider11_ValueChange(int value)
@@ -57,19 +61,25 @@ namespace MusicPlayer
         private void Player_TrackEnd(int index)
         {
             if (!AudioHelper.Player.playingAll)
+            {
+                lblCurrentlyPlaying.Text = "Last Played:";
                 return;
+            }
+                
 
             if(fvPlayListView.Items.Count > index + 1)
             {
                 fvPlayListView.SelectedIndex = index + 1;
                 lblCurrentSong.Text = Path.GetFileName(AudioHelper.Player.playList[index + 1]);
-                Console.WriteLine($"now playing {AudioHelper.Player.playList[index + 1]}, index of {index + 1}");
+                lblCurrentlyPlaying.Text = "Currently Playing:";
+                //Console.WriteLine($"now playing {AudioHelper.Player.playList[index + 1]}, index of {index + 1}");
             }
             else if (fvPlayListView.Items.Count > index)
             {
                 fvPlayListView.SelectedIndex = index;
                 lblCurrentSong.Text = Path.GetFileName(AudioHelper.Player.playList[index]);
-                Console.WriteLine($"last song {AudioHelper.Player.playList[index]}, index of {index}");
+                lblCurrentlyPlaying.Text = "Last Played:";
+                //Console.WriteLine($"last song {AudioHelper.Player.playList[index]}, index of {index}");
             }
         }
 
@@ -85,6 +95,26 @@ namespace MusicPlayer
         }
 
         #region tsLeftButtons
+
+        private void tsbShuffle_Click(object sender, EventArgs e)
+        {
+            if(shuffleRateLimit.ElapsedMilliseconds > 2000 && fvPlayListView.Items.Count > 0)
+            {
+                shuffleRateLimit.Restart();
+                Random rnd = new Random();
+
+                AudioHelper.Player.playList.Clear();
+                List< ListViewItem> items = fvPlayListView.Items.OfType<ListViewItem>().OrderBy(x => rnd.Next()).ToList();
+                fvPlayListView.Items.Clear();
+                fvPlayListView.Items.AddRange(items.ToArray());
+
+                foreach (ListViewItem item in fvPlayListView.Items)
+                {
+                    AudioHelper.Player.playList.Add((string)item.Tag);
+                }
+            }
+
+        }
 
         private void tsbRemoveFromList_Click(object sender, EventArgs e)
         {
@@ -113,6 +143,10 @@ namespace MusicPlayer
 
         private void tsbPlayAll_Click(object sender, EventArgs e)
         {
+            if (AudioHelper.Player.playList.Count < 1)
+                return;
+
+            lblCurrentlyPlaying.Text = "Currently Playing:";
             fvPlayListView.SelectedIndex = AudioHelper.Player.songIndex;
             lblCurrentSong.Text = Path.GetFileName(AudioHelper.Player.playList[AudioHelper.Player.songIndex]);
             AudioHelper.Player.PlayAll();
@@ -122,7 +156,6 @@ namespace MusicPlayer
         {
             foreach (ListViewItem item in fvDirectoryView.SelectedItems)
             {
-                //fvPlayListView.Items.Add(item.CloneSafe());
                 ListViewItem newItem = new ListViewItem(item.SubItems[1].Text);
                 newItem.Tag = item.Tag;
                 newItem.Name = item.Name;
@@ -159,6 +192,8 @@ namespace MusicPlayer
         {
             if (AudioHelper.Player.playingAll)
                 return;
+
+            lblCurrentlyPlaying.Text = "Currently Playing:";
             string path = (string)fvPlayListView.Items[fvPlayListView.SelectedIndex].Tag;
             lblCurrentSong.Text = Path.GetFileName(path);
             AudioHelper.playSound(path);
@@ -193,12 +228,16 @@ namespace MusicPlayer
                 AudioHelper.Player.Resume();
                 btnPause.Text = "Pause";
             }
-            else
+            else if(AudioHelper.Player.isRunning)
             {
                 AudioHelper.Player.Pause();
                 btnPause.Text = "Resume";
             }
         }
 
+        private void btnSkip_Click(object sender, EventArgs e)
+        {
+            AudioHelper.Player.Next();
+        }
     }
 }

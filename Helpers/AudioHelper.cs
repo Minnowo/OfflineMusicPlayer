@@ -92,7 +92,7 @@ namespace MusicPlayer.Helpers
 
             public void PlayAllFromIndex(int index)
             {
-                if (playList.Count - 1 >= index)
+                if (playList.Count - 1 >= index && index > 0)
                 {
                     songIndex = index;
                     PlayAll();
@@ -181,6 +181,15 @@ namespace MusicPlayer.Helpers
                 }
                 songIndex = 0;
                 playingAll = false;
+                paused = false;
+            }
+
+            public void Next()
+            {
+                if (cts != null)
+                {
+                    cts.Cancel();
+                }
                 paused = false;
             }
 
