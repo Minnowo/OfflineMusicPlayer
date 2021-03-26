@@ -169,7 +169,7 @@ namespace MusicPlayer.Controls
             {
                 if (File.Exists(Items[SelectedIndex].Tag.ToString()))
                 {
-                    //PathHelper.OpenWithDefaultProgram(Items[SelectedIndex].Tag.ToString());
+                    PathHelper.OpenWithDefaultProgram(Items[SelectedIndex].Tag.ToString());
                 }
                 else
                 {
@@ -206,22 +206,6 @@ namespace MusicPlayer.Controls
 
 
         #endregion
-
-        private async void ToolStripMenuItemDelete_Click(object sender, EventArgs e)
-        {
-            if (SelectedIndex != -1)
-            {
-                foreach (ListViewItem item in SelectedItems)
-                {
-                    if (PathHelper.DeleteFile(item.Tag.ToString()))
-                    {
-                        Items.Remove(item);
-                        SelectedIndex = -1;
-                    }
-                }
-                await ListViewDumpAsync((ListViewItem[])this.Items.OfType<ListViewItem>().ToArray().Clone());
-            }
-        }
 
         private async void ToolStripMenuItemRemoveFromList_Click(object sender, EventArgs e)
         {

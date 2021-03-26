@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MusicPlayer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("OMP")]
+[assembly: AssemblyDescription("OfflineMusicPlayer")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MusicPlayer")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany(";3c")]
+[assembly: AssemblyProduct(";3")]
+[assembly: AssemblyCopyright("Neko")]
+[assembly: AssemblyTrademark("Meow")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

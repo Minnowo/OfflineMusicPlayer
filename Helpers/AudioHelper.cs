@@ -44,7 +44,7 @@ namespace MusicPlayer.Helpers
             }
         }
 
-        
+
 
         public class AudioPlayer
         {
@@ -56,16 +56,29 @@ namespace MusicPlayer.Helpers
             public delegate void ProgressChanged(AudioTrack progress);
             public event ProgressChanged SongTimeChanged;
 
-            public int songIndex {get; private set;} = 0;
+            public float Volume 
+            {
+                get 
+                {
+                    return volume;
+                } 
+                set
+                {
+                    volume = value.Clamp(0, 1);
+                } 
+            }
+            public int songIndex { get; private set; } = 0;
             public bool isRunning { get; private set; } = false;
             public bool playingAll { get; private set; } = false;
+            public bool paused { get; private set; } = false;
 
-            private CancellationTokenSource cts; 
-            
-            
+            private float volume = 0.5f;
+            private CancellationTokenSource cts;
+
+
             private void OnTrackFinished()
             {
-                if(TrackEnd != null)
+                if (TrackEnd != null)
                 {
                     TrackEnd(songIndex);
                 }
@@ -90,7 +103,7 @@ namespace MusicPlayer.Helpers
             {
                 if (!playingAll)
                 {
-                    if(playList.Count - 1 >= songIndex)
+                    if (playList.Count - 1 >= songIndex)
                     {
                         playingAll = true;
                         Start(playList[songIndex]);
@@ -144,6 +157,22 @@ namespace MusicPlayer.Helpers
                 }
             }
 
+            public void Resume()
+            {
+                if (isRunning)
+                {
+                    paused = false;
+                }
+            }
+
+            public void Pause()
+            {
+                if (isRunning)
+                {
+                    paused = true;
+                }
+            }
+
             public void Stop()
             {
                 if (cts != null)
@@ -152,50 +181,65 @@ namespace MusicPlayer.Helpers
                 }
                 songIndex = 0;
                 playingAll = false;
+                paused = false;
             }
 
             private void PlayAudioThread(string filePath, IProgress<AudioTrack> progress, CancellationToken ct)
             {
-                using (WaveOutEvent wout = new WaveOutEvent())
-                using (AudioFileReader afr = new AudioFileReader(filePath))
+                try
                 {
-                    wout.Init(afr);
-                    wout.Play();
-                    Stopwatch timer = Stopwatch.StartNew();
-                    AudioTrack track = new AudioTrack() 
-                    { 
-                        currentTime = TimeSpan.Zero, 
-                        totalTime = afr.TotalTime, 
-                        progress = 0 
-                    };
-
-                    while (wout.PlaybackState != PlaybackState.Stopped && !ct.IsCancellationRequested)
+                    using (WaveOutEvent wout = new WaveOutEvent())
+                    using (AudioFileReader afr = new AudioFileReader(filePath))
                     {
-                        if (timer.ElapsedMilliseconds > 100)
+                        wout.Init(afr);
+                        wout.Play();
+                        wout.Volume = volume;
+                        AudioTrack track = new AudioTrack()
+                        {
+                            currentTime = TimeSpan.Zero,
+                            totalTime = afr.TotalTime,
+                            progress = 0
+                        };
+
+                        while (wout.PlaybackState != PlaybackState.Stopped && !ct.IsCancellationRequested)
+                        {
+                            if (paused)
+                            {
+                                wout.Pause();
+                                Thread.Sleep(1000);
+                            }
+                            else if (wout.PlaybackState == PlaybackState.Paused)
+                            {
+                                wout.Play();
+                            }
+                            else
+                            {
+                                wout.Volume = volume;
+                                progress.Report(track);
+                                track.currentTime = afr.CurrentTime;
+                                track.progress = (int)Math.Round
+                                    (
+                                    (double)(afr.CurrentTime.TotalSeconds / afr.TotalTime.TotalSeconds) * 100d
+                                    );
+                                Thread.Sleep(200);
+                            }
+                        }
+                        wout.Stop();
+                        if (ct.IsCancellationRequested)
+                        {
+                            progress.Report(AudioTrack.empty);
+
+                            ct.ThrowIfCancellationRequested();
+                        }
+                        else
                         {
                             progress.Report(track);
-
-                            timer.Reset();
-                            timer.Start();
                         }
-                        track.currentTime = afr.CurrentTime;
-                        track.progress = (int)Math.Round
-                            (
-                            (double)(afr.CurrentTime.TotalSeconds / afr.TotalTime.TotalSeconds) * 100d
-                            );
-                        Thread.Sleep(200);
                     }
-
-                    if (ct.IsCancellationRequested)
-                    {
-                        progress.Report(AudioTrack.empty);
-
-                        ct.ThrowIfCancellationRequested();
-                    }
-                    else
-                    {
-                        progress.Report(track);
-                    }
+                }
+                catch(Exception e)
+                {
+                    throw new OperationCanceledException(e.ToString());
                 }
             }
         }

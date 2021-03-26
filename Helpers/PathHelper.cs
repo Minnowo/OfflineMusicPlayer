@@ -11,7 +11,7 @@ namespace MusicPlayer.Helpers
 {
     public static class PathHelper
     {
-        public static string loadedItemsPath = "";
+        public static string loadedItemsPath = "\\Playlists\\loadedItems";
         public static readonly string[] SizeSuffixes =
            { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
         public static bool OpenExplorerAtLocation(string path)
@@ -59,6 +59,19 @@ namespace MusicPlayer.Helpers
             return string.Format("{0:n" + decimalPlaces + "} {1}",
                 adjustedSize,
                 SizeSuffixes[mag]);
+        }
+
+        public static bool OpenWithDefaultProgram(string path)
+        {
+            if (File.Exists(path))
+            {
+                Process fileopener = new Process();
+                fileopener.StartInfo.FileName = "explorer";
+                fileopener.StartInfo.Arguments = "\"" + path + "\"";
+                fileopener.Start();
+                return true;
+            }
+            return false;
         }
 
         public static string AskChooseDirectory(string dir = "")

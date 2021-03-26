@@ -1,6 +1,3 @@
-X:\Languages\C#\MusicPlayer\bin\Debug\MusicPlayer.exe.config
-X:\Languages\C#\MusicPlayer\bin\Debug\MusicPlayer.exe
-X:\Languages\C#\MusicPlayer\bin\Debug\MusicPlayer.pdb
 X:\Languages\C#\MusicPlayer\bin\Debug\NAudio.dll
 X:\Languages\C#\MusicPlayer\bin\Debug\NAudio.xml
 X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.csprojAssemblyReference.cache
@@ -8,7 +5,10 @@ X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.Properties.Resources.resources
 X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.csproj.GenerateResource.cache
 X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.csproj.CoreCompileInputs.cache
 X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.csproj.CopyComplete
-X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.exe
-X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.pdb
 X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.Controls.FileView.resources
-X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.Form1.resources
+X:\Languages\C#\MusicPlayer\bin\Debug\OMP.exe.config
+X:\Languages\C#\MusicPlayer\bin\Debug\OMP.exe
+X:\Languages\C#\MusicPlayer\bin\Debug\OMP.pdb
+X:\Languages\C#\MusicPlayer\obj\Debug\MusicPlayer.MainForm.resources
+X:\Languages\C#\MusicPlayer\obj\Debug\OMP.exe
+X:\Languages\C#\MusicPlayer\obj\Debug\OMP.pdb

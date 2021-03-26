@@ -7,7 +7,7 @@
     <ProjectGuid>{A105B6A1-F7A7-4828-B81A-A3F0E3C77483}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>MusicPlayer</RootNamespace>
-    <AssemblyName>MusicPlayer</AssemblyName>
+    <AssemblyName>OMP</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -61,11 +61,14 @@
     <Compile Include="Controls\FileView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="Controls\ProgressSlider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AudioHelper.cs" />
     <Compile Include="Helpers\Structs.cs" />
@@ -76,8 +79,8 @@
     <EmbeddedResource Include="Controls\FileView.resx">
       <DependentUpon>FileView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
