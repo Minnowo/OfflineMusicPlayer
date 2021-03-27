@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tsLeftButtons = new System.Windows.Forms.ToolStrip();
             this.tsbAddDirectory = new System.Windows.Forms.ToolStripButton();
             this.tsbAddToList = new System.Windows.Forms.ToolStripButton();
@@ -58,15 +59,35 @@
             this.chFolderViewFileSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.fvPlayListView = new MusicPlayer.Controls.FileView();
             this.chPlayListFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnSkip = new System.Windows.Forms.Button();
+            this.cmsFVPlayListMain = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRemoveFromList = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAddToList = new System.Windows.Forms.ToolStripMenuItem();
+            this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.cmsTrayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiPlayAllTray = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStopTray = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPauseTray = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiVolume = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsVolumeTray = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiOpenWindowTray = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCloseTray = new System.Windows.Forms.ToolStripMenuItem();
             this.psVolume = new MusicPlayer.Controls.ProgressSlider();
             this.pbSongTime = new MusicPlayer.Controls.ColorProgressBar();
-            this.btnSkip = new System.Windows.Forms.Button();
+            this.nudVolumeTray = new System.Windows.Forms.NumericUpDown();
             this.tsLeftButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.cmsFVPlayListMain.SuspendLayout();
+            this.cmsTrayMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudVolumeTray)).BeginInit();
             this.SuspendLayout();
             // 
             // tsLeftButtons
@@ -181,6 +202,7 @@
             this.tsbSavePlaylist.Size = new System.Drawing.Size(140, 24);
             this.tsbSavePlaylist.Text = "SavePlaylist";
             this.tsbSavePlaylist.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tsbSavePlaylist.Click += new System.EventHandler(this.tsbSavePlaylist_Click);
             // 
             // tsbLoadPlaylist
             // 
@@ -189,6 +211,7 @@
             this.tsbLoadPlaylist.Size = new System.Drawing.Size(140, 24);
             this.tsbLoadPlaylist.Text = "LoadPlaylist";
             this.tsbLoadPlaylist.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tsbLoadPlaylist.Click += new System.EventHandler(this.tsbLoadPlaylist_Click);
             // 
             // lblCurrentlyPlaying
             // 
@@ -306,7 +329,6 @@
             // 
             // fvDirectoryView
             // 
-            this.fvDirectoryView.autoFillColumn = true;
             this.fvDirectoryView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fvDirectoryView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chFolderViewFolderName,
@@ -321,6 +343,7 @@
             this.fvDirectoryView.TabIndex = 0;
             this.fvDirectoryView.UseCompatibleStateImageBehavior = false;
             this.fvDirectoryView.View = System.Windows.Forms.View.Details;
+            this.fvDirectoryView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.fvDirectoryView_MouseUp);
             // 
             // chFolderViewFolderName
             // 
@@ -336,7 +359,6 @@
             // 
             // fvPlayListView
             // 
-            this.fvPlayListView.autoFillColumn = true;
             this.fvPlayListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fvPlayListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chPlayListFileName});
@@ -349,10 +371,157 @@
             this.fvPlayListView.TabIndex = 0;
             this.fvPlayListView.UseCompatibleStateImageBehavior = false;
             this.fvPlayListView.View = System.Windows.Forms.View.Details;
+            this.fvPlayListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.fvPlayListView_MouseUp);
             // 
             // chPlayListFileName
             // 
             this.chPlayListFileName.Text = "Name";
+            // 
+            // btnSkip
+            // 
+            this.btnSkip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSkip.Location = new System.Drawing.Point(721, 430);
+            this.btnSkip.Name = "btnSkip";
+            this.btnSkip.Size = new System.Drawing.Size(75, 23);
+            this.btnSkip.TabIndex = 17;
+            this.btnSkip.Text = "Skip";
+            this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
+            // 
+            // cmsFVPlayListMain
+            // 
+            this.cmsFVPlayListMain.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsFVPlayListMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiOpen,
+            this.tsmiRemoveFromList,
+            this.tsmiAddToList});
+            this.cmsFVPlayListMain.Name = "cmsFVPlayListMain";
+            this.cmsFVPlayListMain.Size = new System.Drawing.Size(189, 76);
+            // 
+            // tsmiOpen
+            // 
+            this.tsmiOpen.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiFolder,
+            this.tsmiFile});
+            this.tsmiOpen.Name = "tsmiOpen";
+            this.tsmiOpen.Size = new System.Drawing.Size(188, 24);
+            this.tsmiOpen.Text = "Open";
+            // 
+            // tsmiFolder
+            // 
+            this.tsmiFolder.Name = "tsmiFolder";
+            this.tsmiFolder.Size = new System.Drawing.Size(134, 26);
+            this.tsmiFolder.Text = "Folder";
+            this.tsmiFolder.Click += new System.EventHandler(this.folderToolStripMenuItem_Click);
+            // 
+            // tsmiFile
+            // 
+            this.tsmiFile.Name = "tsmiFile";
+            this.tsmiFile.Size = new System.Drawing.Size(134, 26);
+            this.tsmiFile.Text = "File";
+            this.tsmiFile.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
+            // 
+            // tsmiRemoveFromList
+            // 
+            this.tsmiRemoveFromList.Name = "tsmiRemoveFromList";
+            this.tsmiRemoveFromList.Size = new System.Drawing.Size(188, 24);
+            this.tsmiRemoveFromList.Text = "RemoveFromList";
+            this.tsmiRemoveFromList.Click += new System.EventHandler(this.removeFromListToolStripMenuItem1_Click);
+            // 
+            // tsmiAddToList
+            // 
+            this.tsmiAddToList.Name = "tsmiAddToList";
+            this.tsmiAddToList.Size = new System.Drawing.Size(188, 24);
+            this.tsmiAddToList.Text = "AddToList";
+            this.tsmiAddToList.Click += new System.EventHandler(this.tsmiAddToList_Click);
+            // 
+            // niTray
+            // 
+            this.niTray.ContextMenuStrip = this.cmsTrayMenu;
+            this.niTray.Icon = ((System.Drawing.Icon)(resources.GetObject("niTray.Icon")));
+            this.niTray.Text = "omp.exe";
+            this.niTray.Visible = true;
+            // 
+            // cmsTrayMenu
+            // 
+            this.cmsTrayMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsTrayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiPlayAllTray,
+            this.tsmiStopTray,
+            this.tsmiPauseTray,
+            this.tsmiVolume,
+            this.toolStripSeparator4,
+            this.tsmiOpenWindowTray,
+            this.tsmiCloseTray});
+            this.cmsTrayMenu.Name = "cmsTrayMenu";
+            this.cmsTrayMenu.Size = new System.Drawing.Size(170, 154);
+            // 
+            // tsmiPlayAllTray
+            // 
+            this.tsmiPlayAllTray.Name = "tsmiPlayAllTray";
+            this.tsmiPlayAllTray.Size = new System.Drawing.Size(169, 24);
+            this.tsmiPlayAllTray.Text = "PlayAll";
+            this.tsmiPlayAllTray.Click += new System.EventHandler(this.tsbPlayAll_Click);
+            // 
+            // tsmiStopTray
+            // 
+            this.tsmiStopTray.Name = "tsmiStopTray";
+            this.tsmiStopTray.Size = new System.Drawing.Size(169, 24);
+            this.tsmiStopTray.Text = "Stop";
+            this.tsmiStopTray.Click += new System.EventHandler(this.tsbStopPlaying_Click);
+            // 
+            // tsmiPauseTray
+            // 
+            this.tsmiPauseTray.Name = "tsmiPauseTray";
+            this.tsmiPauseTray.Size = new System.Drawing.Size(169, 24);
+            this.tsmiPauseTray.Text = "Pause";
+            this.tsmiPauseTray.Click += new System.EventHandler(this.btnPause_Click);
+            // 
+            // tsmiVolume
+            // 
+            this.tsmiVolume.DropDown = this.cmsVolumeTray;
+            this.tsmiVolume.Name = "tsmiVolume";
+            this.tsmiVolume.Size = new System.Drawing.Size(169, 24);
+            this.tsmiVolume.Text = "Volume";
+            // 
+            // nudVolumeTray
+            // 
+            this.nudVolumeTray.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudVolumeTray.Location = new System.Drawing.Point(12, 371);
+            this.nudVolumeTray.Name = "nudVolumeTray";
+            this.nudVolumeTray.Size = new System.Drawing.Size(120, 22);
+            this.nudVolumeTray.TabIndex = 18;
+            this.nudVolumeTray.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudVolumeTray.ValueChanged += new System.EventHandler(this.nudVolume_ValueChanged);
+            // 
+            // cmsVolumeTray
+            // 
+            this.cmsVolumeTray.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsVolumeTray.Name = "cmsVolumeTray";
+            this.cmsVolumeTray.AutoSize = false;
+            this.cmsVolumeTray.Size = new System.Drawing.Size(100, 40);
+            this.cmsVolumeTray.Items.Add(new System.Windows.Forms.ToolStripControlHost(this.nudVolumeTray));
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(166, 6);
+            // 
+            // tsmiOpenWindowTray
+            // 
+            this.tsmiOpenWindowTray.Name = "tsmiOpenWindowTray";
+            this.tsmiOpenWindowTray.Size = new System.Drawing.Size(169, 24);
+            this.tsmiOpenWindowTray.Text = "OpenWindow";
+            // 
+            // tsmiCloseTray
+            // 
+            this.tsmiCloseTray.Name = "tsmiCloseTray";
+            this.tsmiCloseTray.Size = new System.Drawing.Size(169, 24);
+            this.tsmiCloseTray.Text = "Close";
             // 
             // psVolume
             // 
@@ -375,23 +544,14 @@
             this.pbSongTime.Size = new System.Drawing.Size(652, 10);
             this.pbSongTime.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pbSongTime.TabIndex = 4;
-            // 
-            // btnSkip
-            // 
-            this.btnSkip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSkip.Location = new System.Drawing.Point(721, 430);
-            this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Size = new System.Drawing.Size(75, 23);
-            this.btnSkip.TabIndex = 17;
-            this.btnSkip.Text = "Skip";
-            this.btnSkip.UseVisualStyleBackColor = true;
-            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
+
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 481);
+            this.Controls.Add(this.nudVolumeTray);
             this.Controls.Add(this.btnSkip);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.nudVolume);
@@ -416,6 +576,9 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.cmsFVPlayListMain.ResumeLayout(false);
+            this.cmsTrayMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudVolumeTray)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,6 +617,23 @@
         private System.Windows.Forms.ToolStripButton tsbSavePlaylist;
         private System.Windows.Forms.ToolStripButton tsbLoadPlaylist;
         private System.Windows.Forms.Button btnSkip;
+        private System.Windows.Forms.ContextMenuStrip cmsFVPlayListMain;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpen;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRemoveFromList;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFolder;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAddToList;
+        private System.Windows.Forms.NotifyIcon niTray;
+        private System.Windows.Forms.ContextMenuStrip cmsTrayMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPlayAllTray;
+        private System.Windows.Forms.ToolStripMenuItem tsmiStopTray;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPauseTray;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOpenWindowTray;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCloseTray;
+        private System.Windows.Forms.ToolStripMenuItem tsmiVolume;
+        private System.Windows.Forms.ContextMenuStrip cmsVolumeTray;
+        private System.Windows.Forms.NumericUpDown nudVolumeTray;
     }
 }
 

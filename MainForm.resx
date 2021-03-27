@@ -120,4 +120,41 @@
   <metadata name="tsLeftButtons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="cmsFVPlayListMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>163, 17</value>
+  </metadata>
+  <metadata name="niTray.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>348, 17</value>
+  </metadata>
+  <metadata name="cmsTrayMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>446, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="niTray.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAABMLAAATCwAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAEAAAADAAAABgAAAAoAAAAOAAAAEQAAABUAAAAYAAAAGgAAABgAAAAOAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAABAAAABgAAAAwAAAATAAAAGwAAACIAAAAsAQEBXAAAAGYAAABYAAAAGwAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgICLy8vL5bv3t7/AAAAcQAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwcDAwMcAwMDSyUjI4qYkZHp5NLS/wAA
+        AIUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB3AAAA7QAAAO0EBASJPzo6n3xycsLKubn0pJub/8+9
+        vf8ICAiKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2y0tLfg8PDz/y7m5/8e1tf/CsLD/vKqq/5uS
+        kv++rKz/EhIShgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAcBcXFz/Tk5O/7Gnp/+wpaX/r6Oj/62g
+        oP+ak5P/uaqq/yAgIIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQGuX19f6np6ev/Pz8//zMzM/8fG
+        xv/Avr7/qaio/8nGxv8vLy95AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQEBVgEBAasBAQGrPj4+cmxs
+        bIyampq2z8/P8ra2tv/S0tL/Pj4+cgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEhI
+        SAZISEgYS0tLPmVlZXi9vb3m4+Pj/0tLS2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAABTU1MpdnZ2i+zs7P9UVFRnAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAVVVVBFVVVU1VVVVmVVVVTQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA//8AAP//AAAAHwAAAB8AAPw/AADgPwAAAD8AAAA/AAAAPwAAAD8AAAA/AADgPwAA/D8AAPw/
+        AAD//wAA//8AAA==
+</value>
+  </data>
+  <metadata name="cmsVolumeTray.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>598, 17</value>
+  </metadata>
 </root>

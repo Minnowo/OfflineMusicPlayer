@@ -61,6 +61,9 @@
     <Compile Include="Controls\FileView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\NumbericUpDownContextMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ProgressSlider.cs">
       <SubType>UserControl</SubType>
     </Compile>

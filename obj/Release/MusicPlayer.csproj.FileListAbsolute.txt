@@ -11,3 +11,4 @@ X:\Languages\C#\MusicPlayer\obj\Release\MusicPlayer.csproj.CoreCompileInputs.cac
 X:\Languages\C#\MusicPlayer\obj\Release\MusicPlayer.csproj.CopyComplete
 X:\Languages\C#\MusicPlayer\obj\Release\omp.exe
 X:\Languages\C#\MusicPlayer\obj\Release\omp.pdb
+X:\Languages\C#\MusicPlayer\obj\Release\MusicPlayer.csprojAssemblyReference.cache

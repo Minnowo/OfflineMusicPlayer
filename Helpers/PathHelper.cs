@@ -14,6 +14,41 @@ namespace MusicPlayer.Helpers
         public static string loadedItemsPath = "\\Playlists\\loadedItems";
         public static readonly string[] SizeSuffixes =
            { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+
+        public static string AskChooseFile(string dir = "")
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.CheckFileExists = true;
+                dialog.Multiselect = false;
+                dialog.ValidateNames = true;
+
+                if (!string.IsNullOrEmpty(dir))
+                    dialog.InitialDirectory = dir;
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    return dialog.FileName;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        public static string AskSaveImage()
+        {
+            using (SaveFileDialog saveFileDialog1 = new SaveFileDialog())
+            {
+                saveFileDialog1.Filter = "Text | *.txt;";
+                saveFileDialog1.Title = "Save an Image File";
+                saveFileDialog1.FileName = "playlist.txt";
+                saveFileDialog1.ShowDialog();
+                return saveFileDialog1.FileName;
+            }
+        }
+
         public static bool OpenExplorerAtLocation(string path)
         {
             if (File.Exists(path))

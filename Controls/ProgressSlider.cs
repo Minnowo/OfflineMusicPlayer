@@ -72,11 +72,12 @@ namespace MusicPlayer.Controls
         {
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
 
-            this.ClientSize = new Size(104, 25);
+            ClientSize = new Size(104, 25);
             displayValueRect = new Rectangle(2, 2, 50, ClientSize.Height - 4 );
             sliderMaxSize = new Size(ClientSize.Width - 4, ClientSize.Height - 4);
-            BackColor = Color.Black;
-            this.SliderColor = Color.Red;
+
+            BackColor = Color.Gainsboro;
+            SliderColor = Color.CornflowerBlue;
 
         }
 
