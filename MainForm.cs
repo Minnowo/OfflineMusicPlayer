@@ -53,6 +53,7 @@ namespace MusicPlayer
 
             preventOverflow = true;
 
+            AudioHelper.Player.Volume = (float)((float)nudVolume.Value / 100f);
             psVolume.Value = (int)nudVolume.Value;
 
             preventOverflow = false;
